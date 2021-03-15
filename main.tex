@@ -1,0 +1,349 @@
+% [Overleaf] https://www.overleaf.com/read/vvrbbfwzqcsc
+% [YouTube] https://youtu.be/Dk1FhbViqb8
+% [GitHub] https://github.com/nobucshirai/infona2020_slide_14
+\documentclass[dvipdfmx,aspectratio=169,20pt]{beamer}
+\usepackage{bxdpx-beamer}
+
+% Beamer theme
+\usetheme{Boadilla}
+
+%%%%% JAPANESE FONT SETTINGS %%%%%
+\usepackage[utf8]{inputenc}
+\usepackage{pxjahyper}
+\renewcommand{\kanjifamilydefault}{\gtdefault} % for Gothic Japanese fonts
+\newcommand{\myfontsetting}[3]{{\fontsize{#1}{#2}\selectfont #3}}
+\usepackage[deluxe,uplatex]{otf} % needed to use super bold Japanese fonts
+\usepackage[unicode,noto-otc]{pxchfon} % needed to use super bold Japanese fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% SETTINGS FOR MATH SYMBOLS %%%%%
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+%\usepackage{graphicx}
+\usepackage{latexsym}
+\usefonttheme{professionalfonts} % use Serif fonts for equations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{fancybox,ascmac}
+\usepackage{url}
+\usepackage[many]{tcolorbox}
+
+%%%%% ALGORITHM SETTING %%%%%
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\algsetup{linenosize=\color{fg!50}\fontsize{8pt}{8pt}\selectfont}
+\renewcommand\algorithmicdo{\bfseries :}
+\renewcommand\algorithmicthen{\bfseries :}
+\renewcommand\algorithmicrequire{\textbf{Input:}}
+\renewcommand\algorithmicensure{\textbf{Output:}}
+\renewcommand{\algorithmicprint}{\textbf{break}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{myblue1}{RGB}{45,130,200}
+\definecolor{myblue2}{RGB}{26,89,142}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor*{structure}{fg=myblue1,bg=blue}
+\setbeamercolor{block title}{fg=myblue1!50!black}
+\setbeamercolor*{block title example}{fg=white,bg=myblue2}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor*{palette quaternary}{fg=black,bg=myblue1}
+
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont{section in toc}{series=\mdseries}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamerfont{title}{size=\LARGE,series=\bfseries}
+\setbeamerfont{date}{size=\small}
+
+\setbeamertemplate{block title}[shadow=false]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+%%%%% BEAMER FOOTLINE SETTINGS %%%%%%
+\setbeamertemplate{footline}[frame number]{}
+\setbeamerfont{footline}{size=\bf\footnotesize\small}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% BEAMER ITEM SETTINGS %%%%%
+\setbeamertemplate{itemize item}[circle]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{enumerate item}[circle]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+%%%%% START_TAG B %%%%%
+%\noindent{\bf X\hspace{-.1em}I\hspace{-.1em}I\hspace{-.1em}I-B.}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}I\hspace{-.1em}I-B (1)}
+\myfontsetting{18pt}{18pt}{
+単振動を表す運動方程式 $m\frac{d^2 x(t)}{dt^2}= - k x(t)$ を考える。
+$x(t)$ の一般解を求めよ。また速度 $v(t)=\frac{dx}{dt}$ を新たに定義し $v(t)$ の一般解を求めよ。
+}
+\end{frame}
+%\\
+\begin{frame}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}I\hspace{-.1em}I-B (2)}
+\myfontsetting{18pt}{18pt}{
+以下の問題では質量およびバネ定数の値を $m=1$, $k=1$ とおく。
+問1で得られた $x(t)$ および $v(t)$ について $t=0$ で $x(0)=1$, $v(0)=0$ とした時の解を求めよ。
+}
+\end{frame}
+%\\
+\begin{frame}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}I\hspace{-.1em}I-B (3)}
+\myfontsetting{13pt}{15pt}{
+問1で示した2階の常微分方程式を2本の1階微分方程式に書き換え、蛙飛び法を用いて数値的に解く場合を考える。
+時間の刻み幅 $\varDelta t=0.01$、 初期値を $(x_0,v_0)=(1,- \sin \left(- \frac{\varDelta t}{2}\right) )$ ($x_0$ は $x(0)$ に、 $v_0$ は $v\left(- \frac{\varDelta t}{2}\right)$ に対応する)、質量およびバネ定数の値を $m=1$, $k=1$ と設定した時、蛙飛び法を用いて時間発展を計算するプログラムを作成し時刻 $t=10$ での位置と速度の値を相対誤差とともに数値で求めよ。数値は有効数字3桁で4桁目を四捨五入して答えよ。
+}\\
+\myfontsetting{12pt}{12pt}{
+作成したプログラムも提出すること。プログラミング言語は問わない。
+}
+%%%%% END_TAG B %%%%%
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{[略解] X\hspace{-.1em}I\hspace{-.1em}I\hspace{-.1em}I-B}
+\myfontsetting{16pt}{16pt}{
+(1) $x(t) = A \cos\left( \sqrt{\frac{k}{m}} t + \theta \right) + B \cos\left( - \sqrt{\frac{k}{m}} t + \theta \right) $
+
+\hspace{8mm} $v(t) = - A \sqrt{\frac{k}{m}}\sin\left( \sqrt{\frac{k}{m}} t + \theta \right) + B \sqrt{\frac{k}{m}}\sin\left( - \sqrt{\frac{k}{m}} t + \theta \right) $
+
+\vspace{5mm}
+
+(2) $x(t) = \cos(t), v(t) = - \sin(t)$
+
+\vspace{5mm}
+
+(3) $\tilde{x}(10) = -0.839,\  \frac{|\tilde{x}(10) - x(10)|}{|x(10)|} = 2.70 \times 10^{-5}$
+
+\hspace{8mm} $\tilde{v}(10) = 0.544,\  \frac{|\tilde{v}(10) - v(10)|}{|v(10)|} = 5.18 \times 10^{-5}$
+}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%タイトルページ
+
+\title{\myfontsetting{32pt}{32pt}{偏微分方程式の数値解法 (1)}}
+
+\titlegraphic{\vspace{-7mm}\flushright\includegraphics[width=1.8cm,height=1.8cm]{hattari_kun_good_org.eps}}
+
+\setbeamertemplate{title page}{%
+    \begin{flushright}
+        \usebeamercolor[fg]{titlegraphic}\inserttitlegraphic
+    \end{flushright}
+    \vspace{-0.6cm}
+    \hspace{1.5cm}{\selectfont\usebeamerfont{subtitle} \usebeamercolor[fg]{subtitle} [\href{https://youtu.be/Dk1FhbViqb8}{数値解析 第14回}] \par}
+    \vspace{0.5cm}
+    %\vspace{2.5em}
+    {\centering\usebeamerfont{title} \usebeamercolor[fg]{title} \inserttitle \par}
+    \vspace{0.5cm}
+    \begin{center}
+        局所的な性質から分布の全体を探る
+    \end{center}
+}
+
+\date[\todey]{}
+
+\frame{\titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\myfontsetting{24pt}{24pt}{偏微分方程式の問題設定}}
+\begin{block}{{\bf\small 偏微分方程式} {\small (Partial differential equation, PDE)}}
+\myfontsetting{14pt}{16pt}{多変数関数 $u(x,y,\dots)$ の偏微分を含む方程式が与えられた場合に $u(x,y,\dots)$ を求める問題。
+空間の各点で定義される場についての物理方程式に現れ、応用は電磁気学、材料力学、伝熱工学、流体力学、数値天気予報など多岐にわたる。
+}
+\end{block}
+
+\vspace{-2mm}
+
+\begin{itemize}
+    %\setlength{\itemsep}{0.5cm}
+    \item \myfontsetting{14pt}{16pt}{物理の問題で現れる多変数関数 $u$ の例}
+    \begin{itemize}
+\vspace{-1mm}
+        \item \myfontsetting{12pt}{12pt}{2次元 or 3次元の空間では $u(x,y)$ or $u(x,y,z)$ となる}
+\vspace{-1mm}
+        \item \myfontsetting{12pt}{12pt}{空間の各点での粒子・電荷の密度、観測される温度}
+\vspace{-1mm}
+        \item \myfontsetting{12pt}{12pt}{ベクトル $\bm{u}$ のとき時空間点での流れ場や電界・磁界}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\myfontsetting{24pt}{24pt}{線形偏微分方程式の例}}
+
+\begin{itemize}
+    \setlength{\itemsep}{0.5cm}
+    \item \myfontsetting{16pt}{16pt}{双極型偏微分方程式} \myfontsetting{12pt}{12pt}{(Hyperbolic PDE)}
+    \begin{itemize}
+\vspace{1mm}
+        \item \myfontsetting{14pt}{14pt}{$\displaystyle \frac{\partial^2 u}{\partial t^2} - c^2 \frac{\partial^2 u}{\partial x^2} = 0$} \hspace{2mm} \myfontsetting{12pt}{12pt}{{\bf [波動方程式]}}
+    \end{itemize}
+    \item \myfontsetting{16pt}{16pt}{放物型偏微分方程式} \myfontsetting{12pt}{12pt}{(Parabolic PDE)}
+\vspace{1mm}
+    \begin{itemize}
+        \item \myfontsetting{14pt}{14pt}{$\displaystyle \frac{\partial u}{\partial t} - \alpha \frac{\partial^2 u}{\partial x^2} = 0$} \hspace{2mm} \myfontsetting{12pt}{12pt}{{\bf [熱伝導方程式]}}
+    \end{itemize}
+    \item \myfontsetting{16pt}{16pt}{楕円型偏微分方程式} \myfontsetting{12pt}{12pt}{(Elliptic PDE)}
+    \begin{itemize}
+\vspace{1mm}
+        \item \myfontsetting{14pt}{14pt}{$\displaystyle \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = f(x,y)$} \hspace{2mm} \myfontsetting{8pt}{8pt}{{\bf [ポアソン方程式 \myfontsetting{8pt}{8pt}{{\bf ($f(x,y)=0$ の場合ラプラス方程式)}}]}}
+
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}V-A}
+%%%%% START_TAG A %%%%%
+%\noindent{\bf [X\hspace{-.1em}I\hspace{-.1em}V. 偏微分方程式の数値解法]}%RETURN
+
+%\noindent{\bf X\hspace{-.1em}I\hspace{-.1em}V-A.}
+
+\myfontsetting{14pt}{14pt}{
+一辺を他の辺よりも高い温度に保った正方形の鉄板の定常状態における温度分布 $T(x,y)$ を数値的に求める問題を考える。
+解くべき方程式は2次元のラプラス方程式 $\frac{\partial^2 T(x,y)}{\partial x^2} + \frac{\partial^2 T(x,y)}{\partial y^2} = 0$ であり鉄板の領域は $0\le x \le 1,\ 0\le y \le 1$ であるとする。
+境界条件は $y=0$, $0\le x \le 1$ の辺を $T(x,y) = 1$、その他の辺は $T(x,y) = 0$ とする。
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}V-A (続き)}
+
+\myfontsetting{14pt}{14pt}{
+$x$, $y$ 方向に離散化し $x_i=\frac{i}{N+1}$, $y_i=\frac{i}{N+1}$ $(0\le i \le N+1)$ という格子点を使ってラプラス方程式を差分を用いた式に書き換え、ガウス・ザイデル法を用いて格子点での温度分布を求めるプログラムを作成せよ。$N=10$ とし、ガウス・ザイデル法は200回反復すること。また温度分布は $(N+2)^2$ の格子点での $T(x,y)$ の値を小数第2位まで求めて小数第3位を四捨五入して計算し、格子点同士の位置と対応するように2次元的に出力せよ。
+}
+
+\myfontsetting{10pt}{10pt}{
+作成したプログラムも提出すること。プログラミング言語は問わない。
+}
+
+%%%%% END_TAG A %%%%%
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{[略解] X\hspace{-.1em}I\hspace{-.1em}V-A}
+%\vspace{-0.5cm}
+
+\myfontsetting{14pt}{14pt}{
+0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00\\
+0.00 0.01 0.02 0.02 0.03 0.03 0.03 0.03 0.02 0.02 0.01 0.00\\
+0.00 0.02 0.04 0.05 0.06 0.07 0.07 0.06 0.05 0.04 0.02 0.00\\
+0.00 0.03 0.06 0.08 0.10 0.11 0.11 0.10 0.08 0.06 0.03 0.00\\
+0.00 0.05 0.09 0.12 0.14 0.15 0.15 0.14 0.12 0.09 0.05 0.00\\
+0.00 0.06 0.12 0.17 0.20 0.21 0.21 0.20 0.17 0.12 0.06 0.00\\
+0.00 0.09 0.17 0.23 0.27 0.29 0.29 0.27 0.23 0.17 0.09 0.00\\
+0.00 0.13 0.23 0.31 0.36 0.38 0.38 0.36 0.31 0.23 0.13 0.00\\
+0.00 0.18 0.32 0.42 0.48 0.50 0.50 0.48 0.42 0.32 0.18 0.00\\
+0.00 0.28 0.46 0.57 0.62 0.65 0.65 0.62 0.57 0.46 0.28 0.00\\
+0.00 0.49 0.68 0.76 0.80 0.82 0.82 0.80 0.76 0.68 0.49 0.00\\
+1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00 1.00\\}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\myfontsetting{24pt}{24pt}{線形偏微分方程式の数値解法---差分化}}
+
+\begin{itemize}
+    \setlength{\itemsep}{0.2cm}
+	\item \myfontsetting{16pt}{16pt}{1階偏微分の差分化}
+\vspace{2mm}
+	\begin{itemize}
+		\item[] \hspace{-2mm} \myfontsetting{12pt}{12pt}{$\displaystyle \frac{\partial u(x,y)}{\partial x} \sim \frac{u(x + \varDelta x,y) - u(x,y)}{\varDelta x}$}
+	\end{itemize}
+	\item \myfontsetting{16pt}{16pt}{2階偏微分の差分化} \myfontsetting{10pt}{10pt}{\bf [点 $(x,y)$ を中心に差分化]}
+\vspace{2mm}
+	\begin{itemize}
+		\item[] \hspace{-2mm}\myfontsetting{12pt}{12pt}{$\displaystyle \frac{\partial^2 u(x,y)}{\partial x^2} \sim \frac{u(x - \varDelta x,y) + u(x + \varDelta x,y) - 2u(x,y)}{\varDelta x^2}$}
+	\end{itemize}
+	\item \myfontsetting{16pt}{16pt}{{$\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}$} の差分化} \myfontsetting{10pt}{10pt}{\bf [点 $(x,y)$ を中心に差分化]}
+\vspace{2mm}
+	\begin{itemize}
+		\item[] \hspace{-2mm}\myfontsetting{10pt}{10pt}{$\displaystyle \frac{\partial^2 u(x,y)}{\partial x^2}+ \frac{\partial^2 u(x,y)}{\partial y^2} \sim \frac{u(x - \varDelta x,y) + u(x + \varDelta x,y) + u(x,y - \varDelta y) + u(x ,y+ \varDelta y) - 4u(x,y)}{\varDelta x^2}$}
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\myfontsetting{28pt}{28pt}{線形偏微分方程式の差分化}}
+
+\begin{itemize}
+    \setlength{\itemsep}{0.2cm}
+	\item \myfontsetting{18pt}{18pt}{線形偏微分方程式を差分化すると{\bf 連立一次方程式}が得られる}
+	\begin{itemize}
+	    \setlength{\itemsep}{0.2cm}
+	    \item \myfontsetting{15pt}{15pt}{方程式の数は差分化に用いた格子点の数に比例}
+	    \item \myfontsetting{15pt}{15pt}{係数行列の次元は1軸方向の空間の分割数を $N$ としたき2次元では $O(N^2)$、3次元では $O(N^3)$}
+	    \item \myfontsetting{15pt}{15pt}{係数行列は疎行列となるためLU分解などの直接法よりも{\bf 反復法}が適している}
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{\myfontsetting{23pt}{23pt}{偏微分方程式の境界値問題と初期値問題}}
+
+\begin{itemize}
+    \setlength{\itemsep}{0.2cm}
+	\item \myfontsetting{15pt}{15pt}{$u(x,y)$ を考えている領域の境界での値 (境界値) を指定することで未知変数と条件の数が一致し連立一次方程式が解けるようになる \myfontsetting{12pt}{12pt}{\bf [境界値問題]}}
+	\begin{itemize}
+		\item \myfontsetting{12pt}{12pt}{\color{myblue1}[問題] X\hspace{-.1em}I\hspace{-.1em}V-A}
+	\end{itemize}
+	\item \myfontsetting{15pt}{15pt}{$u(x,y,t)$ の時間偏微分も含む場合は初期分布を与えることで時間発展を考える事ができる \myfontsetting{12pt}{12pt}{\bf [初期値問題]}}
+	\begin{itemize}
+		\item \myfontsetting{12pt}{12pt}{\color{myblue1}[問題] X\hspace{-.1em}I\hspace{-.1em}V-B}
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{{\myfontsetting{22pt}{22pt}{[手法] 偏微分方程式の境界値問題の解法}}}
+\begin{block}{\myfontsetting{15pt}{15pt}{\bf\small ガウス-ザイデル法を用いたラプラス方程式の数値解法}}
+    \myfontsetting{14pt}{18pt}{
+    \begin{algorithmic}[1]
+        \REQUIRE $k_\mathrm{max}$, $N$, $T_{0j}$ \myfontsetting{8pt}{8pt}{$(0\le j \le N+1)$}, $T_{i0}$ \myfontsetting{8pt}{8pt}{$(1\le i \le N+1)$}, $T_{N+1,j}$ \myfontsetting{8pt}{8pt}{$(1\le j \le N+1)$}, $T_{i,N+1}$ \myfontsetting{8pt}{8pt}{$(1\le i \le N)$} \myfontsetting{8pt}{8pt}{\bf [境界値]},$T_{ij}$ \myfontsetting{8pt}{8pt}{$(1\le i, j \le N)$} \myfontsetting{8pt}{8pt}{[0などの初期値を設定する]}
+        \ENSURE $T_{ij}$ \myfontsetting{8pt}{8pt}{$(0\le i, j \le N+1)$}
+        \FOR{$k = 1,2, \dots, k_\mathrm{max}$}
+        \FOR{$i = 1,\dots, N$}
+        \FOR{$j = 1,\dots, N$}
+		\STATE $T_{ij} \leftarrow \frac{1}{4}\left\{ T_{i-1,j} + T_{i+1,j} + T_{i,j-1} + T_{i,j+1}\right\}$
+        \ENDFOR
+        \ENDFOR
+        \ENDFOR
+    \end{algorithmic}
+    }
+\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+%%%%% PASTE_START_TAG B %%%%%
+%\noindent{\bf X\hspace{-.1em}I\hspace{-.1em}V-B.}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}V-B}
+
+\myfontsetting{14pt}{14pt}{
+X\hspace{-.1em}I\hspace{-.1em}V-Aで求めた 温度分布 $T(x,y)$ を初期条件 $T(x,y,t=0)$ として鉄板が断熱された環境に移された場合を考える。
+時間の経過とともに熱が伝わって一様な温度分布に近づいていく様子を数値的に求める。
+解くべき方程式は2次元の熱伝導方程式 $\frac{\partial T(x,y,t)}{\partial t} = a \left\{ \frac{\partial^2 T(x,y,t)}{\partial x^2} + \frac{\partial^2 T(x,y,t)}{\partial y^2}\right\}$ $(0\le x \le 1, 0\le y \le 1)$ である。ここで $a$ は温度伝導率であり $a=1$ とする。
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{[問題] X\hspace{-.1em}I\hspace{-.1em}V-B (続き)}
+
+\myfontsetting{14pt}{14pt}{
+両辺をX\hspace{-.1em}I\hspace{-.1em}V-Aと同じ格子点を用いて離散化し、オイラー法を用い時間幅を $\varDelta t=0.001$ として $t=0.001, 0.01, 0.1,1$ での温度分布を求めるプログラムを作成せよ。
+温度分布はX\hspace{-.1em}I\hspace{-.1em}V-Aと同様に数値で出力するか等高線を用いた図を作成して示すこと。
+}
+
+\myfontsetting{10pt}{10pt}{
+作成したプログラムも提出すること。プログラミング言語は問わない。
+}
+
+%%%%% PASTE_END_TAG B %%%%%
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
